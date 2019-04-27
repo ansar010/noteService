@@ -57,11 +57,10 @@ public class NoteServiceImp implements INoteService
 	@Autowired
 	private ModelMapper modelMapper;
 	
-//	@Autowired
-//	private IUserRepository userRepository;
-//	
-//	@Autowired
-//	private RestTemplate restTemplate;
+
+	
+	@Autowired
+	private RestTemplate restTemplate;
 
 	private final Path fileLocation = Paths.get("/home/admin1/FundooFile");
 //		private final Path fileLocation = Paths.get("G:\\FundooFile");
@@ -346,18 +345,19 @@ public class NoteServiceImp implements INoteService
 	
 	@Override
 	public Response addCollab(long noteId, String userMailId, String token) {
-		RestTemplate restTemplate= new RestTemplate();
+//		RestTemplate restTemplate= new RestTemplate();
 		
 		User user = restTemplate.getForObject("http://localhost:8081/user/userdetails/"+userMailId, User.class);
-		System.out.println();
-		log.info("micro user",user.toString());
-//		Note note = noteRepository.findById(noteId).get();
-//		
-//		user.getCollabedNotes().add(note);
-//		userRepository.save(user);
-//		note.getCollabedUsers().add(user);
-//		noteRepository.save(note);
+		log.info("userDetails -> "+user.toString());
 		
+		Note note = noteRepository.findById(noteId).get();
+		
+		log.info(note.toString());
+
+		
+		note.getCollabedUser().add(user);
+		noteRepository.save(note);
+
 		Response response = StatusHelper.statusInfo(environment.getProperty("status.addCollab.successMsg"),
 				Integer.parseInt(environment.getProperty("status.success.code")));
 

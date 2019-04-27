@@ -25,7 +25,7 @@ import lombok.ToString;
 @Getter
 @Setter
 @Table(name="note_details")
-@ToString
+//@ToString
 public class Note implements Serializable
 {
 	/**
@@ -76,7 +76,7 @@ public class Note implements Serializable
 	@ManyToMany
 	@JoinTable(
 			name="collabNote_details",
-			joinColumns=@JoinColumn(name="collabednote_id",referencedColumnName="ID"),
+			joinColumns=@JoinColumn(name="collabednote_id",referencedColumnName="id"),
 			inverseJoinColumns=@JoinColumn(name="collabeduser_id",referencedColumnName="userId"))
 	private Set<User> collabedUser;
 	//	@ManyToOne
