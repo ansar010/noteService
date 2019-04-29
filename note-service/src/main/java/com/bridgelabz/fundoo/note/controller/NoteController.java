@@ -39,14 +39,24 @@ import lombok.extern.slf4j.Slf4j;
 public class NoteController {
 
 	@Autowired
-	INoteService noteService;
+	private INoteService noteService;
 
 	@Autowired
-	Environment environment;
+	private Environment environment;
 
 	@Autowired
-	Response response;
+	private Response response;
+	
+	@PostMapping
+	public ResponseEntity<String> hello()
+	{
+		
 
+//		Response response = noteService.createNote(noteDTO, token);
+
+		return new ResponseEntity<String>("hello",HttpStatus.CREATED);
+	}
+	
 	@PostMapping
 	public ResponseEntity<Response> createNote(@RequestBody NoteDTO noteDTO,BindingResult bindingResult,@RequestHeader("token") String token)
 	{
@@ -133,9 +143,6 @@ public class NoteController {
 		return new ResponseEntity<>(listOfNotes,HttpStatus.CREATED);
 	}
 
-
-
-	
 	@PostMapping("/imageupload/{noteId}")
 	public ResponseEntity<Response> saveImage(@RequestHeader("token") String token, @RequestParam("file") MultipartFile file,@PathVariable String noteId)
 	{
