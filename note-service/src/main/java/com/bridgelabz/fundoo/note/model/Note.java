@@ -3,28 +3,25 @@ package com.bridgelabz.fundoo.note.model;
 import java.io.Serializable;
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
-import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
-import lombok.ToString;
 
 @Entity
 @Getter
 @Setter
 @Table(name="note_details")
+@AllArgsConstructor
 //@ToString
 public class Note implements Serializable
 {
@@ -73,30 +70,11 @@ public class Note implements Serializable
 	
 	private long userId;
 
-	@ManyToMany
-	@JoinTable(
-			name="collabNote_details",
-			joinColumns=@JoinColumn(name="collabednote_id",referencedColumnName="id"),
-			inverseJoinColumns=@JoinColumn(name="collabeduser_id",referencedColumnName="userId"))
-	private Set<User> collabedUser;
-	//	@ManyToOne
-//	@JoinColumn(name="user_id",referencedColumnName="userId")
-//    private User userId;
-	
-//	@ManyToOne
-//	@JoinColumn(name="userId")
-//	private User user;
-//	
 //	@ManyToMany
 //	@JoinTable(
-//		name="collabNote_Details",
-//		joinColumns=@JoinColumn(name="collabednote_id",referencedColumnName="ID"),
-//		inverseJoinColumns=@JoinColumn(name="collabeduser_id",referencedColumnName="userId"))
-//	private Set<User> collabedUsers;
-//	
-//	
-//	// Performing mapping to consist collection of  labels
-//	@ManyToMany(mappedBy="notes")
-//	private Set<Label> labels;
+//			name="collabNote_details",
+//			joinColumns=@JoinColumn(name="collabednote_id",referencedColumnName="id"),
+//			inverseJoinColumns=@JoinColumn(name="collabeduser_id",referencedColumnName="userId"))
+//	private Set<User> collabedUser;
 	
 }

@@ -29,7 +29,7 @@ public interface INoteService {
 
 	Resource getNoteImage(Long noteId);
 
-	Response addCollab(long noteId, String userMailId, String token);
+//	Response addCollab(long noteId, String userMailId, String token);
 
 	
 }

@@ -25,15 +25,11 @@ import org.springframework.core.env.Environment;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.UrlResource;
 import org.springframework.stereotype.Service;
-import org.springframework.web.client.RestTemplate;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.bridgelabz.fundoo.note.dao.INoteRepository;
-//import com.bridgelabz.fundoo.note.dao.IUserRepository;
 import com.bridgelabz.fundoo.note.dto.NoteDTO;
 import com.bridgelabz.fundoo.note.model.Note;
-import com.bridgelabz.fundoo.note.model.User;
-//import com.bridgelabz.fundoo.note.model.User;
 import com.bridgelabz.fundoo.response.Response;
 import com.bridgelabz.fundoo.util.StatusHelper;
 import com.bridgelabz.fundoo.util.UserToken;
@@ -59,8 +55,8 @@ public class NoteServiceImp implements INoteService
 	
 
 	
-	@Autowired
-	private RestTemplate restTemplate;
+//	@Autowired
+//	private RestTemplate restTemplate;
 
 	private final Path fileLocation = Paths.get("/home/admin1/FundooFile");
 //		private final Path fileLocation = Paths.get("G:\\FundooFile");
@@ -74,6 +70,7 @@ public class NoteServiceImp implements INoteService
 
 		long userId = userToken.tokenVerify(token);
 		log.info(Long.toString(userId));
+		
 		//transfer DTO data into Model
 		Note note = modelMapper.map(noteDTO, Note.class);
 		
@@ -83,6 +80,8 @@ public class NoteServiceImp implements INoteService
 	
 		Response response = StatusHelper.statusInfo(environment.getProperty("status.noteCreate.successMsg"),
 				Integer.parseInt(environment.getProperty("status.success.code")));
+
+//		Response response = new Response("success", 200);
 
 		return response;
 	}
@@ -129,9 +128,9 @@ public class NoteServiceImp implements INoteService
 ////		Optional<User> dbUser = userRepository.findById(userId);
 ////		List<Note> collabedNotes = dbUser.get().getCollabedNotes().stream().collect(Collectors.toList());
 		
-		Optional<List<Note>> list_of_notes = noteRepository.findAllById(userId, Boolean.valueOf(isArchive),Boolean.valueOf(isTrash));
+		List<Note> list_of_notes = noteRepository.findAllByUserId(userId, Boolean.valueOf(isArchive),Boolean.valueOf(isTrash));
 		
-		return list_of_notes.get();
+		return list_of_notes;
 	}
 
 
@@ -343,26 +342,26 @@ public class NoteServiceImp implements INoteService
 		return null;
 	}
 	
-	@Override
-	public Response addCollab(long noteId, String userMailId, String token) {
-//		RestTemplate restTemplate= new RestTemplate();
-		
-		User user = restTemplate.getForObject("http://localhost:8081/user/userdetails/"+userMailId, User.class);
-		log.info("userDetails -> "+user.toString());
-		
-		Note note = noteRepository.findById(noteId).get();
-		
-		log.info(note.toString());
-
-		
-		note.getCollabedUser().add(user);
-		noteRepository.save(note);
-
-		Response response = StatusHelper.statusInfo(environment.getProperty("status.addCollab.successMsg"),
-				Integer.parseInt(environment.getProperty("status.success.code")));
-
-		return response;
-		}
-
+//	@Override
+//	public Response addCollab(long noteId, String userMailId, String token) {
+////		RestTemplate restTemplate= new RestTemplate();
+//		
+//		User user = restTemplate.getForObject("http://localhost:8081/user/userdetails/"+userMailId, User.class);
+//		log.info("userDetails -> "+user.toString());
+//		
+//		Note note = noteRepository.findById(noteId).get();
+//		
+//		log.info(note.toString());
+//
+//		
+//		note.getCollabedUser().add(user);
+//		noteRepository.save(note);
+//
+//		Response response = StatusHelper.statusInfo(environment.getProperty("status.addCollab.successMsg"),
+//				Integer.parseInt(environment.getProperty("status.success.code")));
+//
+//		return response;
+//		}
+	
 
 }

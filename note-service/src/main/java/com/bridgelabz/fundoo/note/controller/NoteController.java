@@ -35,7 +35,7 @@ import lombok.extern.slf4j.Slf4j;
 @RestController
 @CrossOrigin(origins = "*" ,allowedHeaders = "*")
 
-@RequestMapping("/user/note")
+@RequestMapping("/note")
 public class NoteController {
 
 	@Autowired
@@ -47,14 +47,14 @@ public class NoteController {
 	@Autowired
 	private Response response;
 	
-	@PostMapping
-	public ResponseEntity<String> hello()
+	@PostMapping("hello")
+	public ResponseEntity<Response> hello(@RequestBody NoteDTO noteDTO,BindingResult bindingResult,@RequestHeader("token") String token)
 	{
 		
 
 //		Response response = noteService.createNote(noteDTO, token);
 
-		return new ResponseEntity<String>("hello",HttpStatus.CREATED);
+		return new ResponseEntity<Response>(response,HttpStatus.CREATED);
 	}
 	
 	@PostMapping
@@ -164,27 +164,17 @@ public class NoteController {
 		return new ResponseEntity<>(resource,HttpStatus.OK);
 	}
 
-	@PostMapping("/addcollaborator")
-	public ResponseEntity<Response> addCollaborator(@RequestParam long noteId,@RequestParam String userMailId, @RequestHeader String token)
-	{
-		log.info("collab API noteId->"+noteId);
-		log.info("collab userMailId->"+userMailId);
-		log.info("collab API token->"+token);
-
-		Response response=noteService.addCollab(noteId,userMailId,token);
-		return new ResponseEntity<>(response,HttpStatus.OK);
-	}
-
-//	@PostMapping("/removecollaborator")
-//	public ResponseEntity<Response> removeCollaborator(@RequestParam long noteId,@RequestParam String userMailId, @RequestHeader String token)
+//	@PostMapping("/addcollaborator")
+//	public ResponseEntity<Response> addCollaborator(@RequestParam long noteId,@RequestParam String userMailId, @RequestHeader String token)
 //	{
 //		log.info("collab API noteId->"+noteId);
 //		log.info("collab userMailId->"+userMailId);
 //		log.info("collab API token->"+token);
 //
-//		Response response=noteService.removeCollab(noteId,userMailId,token);
+//		Response response=noteService.addCollab(noteId,userMailId,token);
 //		return new ResponseEntity<>(response,HttpStatus.OK);
 //	}
+
 
 
 	
