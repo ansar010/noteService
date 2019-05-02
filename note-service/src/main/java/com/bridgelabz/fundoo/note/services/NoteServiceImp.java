@@ -78,10 +78,10 @@ public class NoteServiceImp implements INoteService
 		note.setCreateStamp(LocalDateTime.now());
 		noteRepository.save(note);
 	
-		Response response = StatusHelper.statusInfo(environment.getProperty("status.noteCreate.successMsg"),
-				Integer.parseInt(environment.getProperty("status.success.code")));
+//		Response response = StatusHelper.statusInfo(environment.getProperty("status.noteCreate.successMsg"),
+//				Integer.parseInt(environment.getProperty("status.success.code")));
 
-//		Response response = new Response("success", 200);
+		Response response = new Response("success", 200);
 
 		return response;
 	}

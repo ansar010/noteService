@@ -41,9 +41,6 @@ public class ServiceTest {
 	@Mock
 	private ModelMapper modelMapper;
 	
-	@Mock
-	private StatusHelper statushelper;
-	
 	
 //	@Before
 //	public void setUp() throws Exception {
@@ -65,8 +62,7 @@ public class ServiceTest {
 		assertEquals(3, result.size());
 	}
 	
-//	@SuppressWarnings("static-access")
-	@SuppressWarnings("static-access")
+
 	@Test
 	public void testCreateNote() {	
 
@@ -77,18 +73,14 @@ public class ServiceTest {
 		
 		when(userToken.tokenVerify(anyString())).thenReturn(1l);
 
-//		when(noterepository.save(note)).the
 		when(modelMapper.map(noteDto, Note.class)).thenReturn(note);
 		
-		when(statushelper.statusInfo(anyString(), (int) anyLong())).thenReturn(response);
-//		PowerMockito.when(StatusHelper.statusInfo(anyString(), (int) anyLong()))
-//        .thenReturn(response);
+//		when(statushelper.statusInfo(anyString(), (int) anyLong())).thenReturn(response);
+
 		
 		when(noterepository.save(note)).thenReturn(note);
 		
-//		List<Note> result = noteService.getAllNoteLists("token", "false", "false");
-//		
-//		assertEquals(3, result.size());
+
 		Response result = noteService.createNote(noteDto, "token");	
 		
 		assertEquals(response.getStatusMessage(), result.getStatusMessage());
