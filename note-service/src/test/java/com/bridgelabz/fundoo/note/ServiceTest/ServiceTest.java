@@ -22,7 +22,6 @@ import com.bridgelabz.fundoo.note.dto.NoteDTO;
 import com.bridgelabz.fundoo.note.model.Note;
 import com.bridgelabz.fundoo.note.services.NoteServiceImp;
 import com.bridgelabz.fundoo.response.Response;
-import com.bridgelabz.fundoo.util.StatusHelper;
 import com.bridgelabz.fundoo.util.UserToken;
 
 @RunWith(SpringJUnit4ClassRunner.class)
